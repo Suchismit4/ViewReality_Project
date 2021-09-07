@@ -3,6 +3,9 @@ const productData = [
         id: '1',
         name: 'Nike Seas.',
         image: require('../images/kisspng-nike-free-air-force-shoe-sneakers-nike-shoes-transparent-background-5a7931690711e9.png'),
+        largeImage: require('../images/large_NS.png'),
+        dX: 245,
+        dY: 180.15,
         cat: "trending",
         price: "4,020"
     },
