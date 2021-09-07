@@ -30,7 +30,12 @@ export default DetailsScreen = ({ route, navigation }) => {
 
                     {/* Showcase Product */}
                     <View style={styles.productImageWrapper}>
-                        <Image source={item.image} style={styles.productImage}></Image>
+                        <Image source={item.largeImage} style={{width: item.dX, height: item.dY}}></Image>
+                    </View>
+
+                    {/* View Info Container Box */}
+                    <View style={styles.viewInfoContainerWrapper}>
+
                     </View>
                 </ScrollView>
             </SafeAreaView>
@@ -84,7 +89,21 @@ const styles = StyleSheet.create({
         elevation: 2,
     },
     productImageWrapper: {
-        marginTop: 40
+        marginTop: 40,
+        height: 230,
+        marginHorizontal: 25,
+        flexDirection: 'row',
+        justifyContent: 'center',
     },
-    productImage: {},
+    viewInfoContainerWrapper: {
+        flex: 1,
+        minHeight: 515,
+        maxHeight: 'auto',
+        width: '100%',
+        backgroundColor: colors.white,
+        padding: 30,
+        borderTopLeftRadius: 50,
+        borderTopRightRadius: 50,
+
+    }
 })
