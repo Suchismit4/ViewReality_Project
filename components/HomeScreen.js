@@ -12,37 +12,51 @@ import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
     const renderCategoryItem = ({ item }) => {
         return (
-            <View style={[styles.categoriesItemWrapper, {
-                marginLeft: item.id == '1' ? 25 : 0
-            }]}>
-                <View style={styles.categoriesItemContentWrapper}>
-                    <Image source={item.image} style={styles.categoriesItemImage} />
-                    <Text style={styles.categoriesItemText}>{item.text}</Text>
+            <TouchableOpacity onPress={() =>
+                navigation.navigate('Details', {
+                    item: item,
+                })
+            }>
+                <View style={[styles.categoriesItemWrapper, {
+                    marginLeft: item.id == '1' ? 25 : 0
+                }]}>
+                    <View style={styles.categoriesItemContentWrapper}>
+                        <Image source={item.image} style={styles.categoriesItemImage} />
+                        <Text style={styles.categoriesItemText}>{item.text}</Text>
+                    </View>
                 </View>
-            </View>
+            </TouchableOpacity>
+
         );
     };
 
     const renderTrendingItem = ({ item }) => {
         if (item.cat == "trending") {
             return (
-                <View style={[styles.trendingItemWrapper, {
-                    marginLeft: item.id == '1' ? 25 : 0
-                }]}>
-                    <ImageBackground source={require('../assets/images/shadowBg.png')} style={styles.backgroundWithShadow}>
-                        <View style={styles.imageContainer}>
-                            <Image style={styles.productImage} source={item.image} />
-                        </View>
-                        <View style={styles.trendingProductDataWrapper}>
-                            <Text style={styles.tProductPrice}>₹{item.price}</Text>
-                            <Image source={require('../assets/images/filled-heart.png')} style={styles.heartIcon} />
-                        </View>
-                        <Text style={styles.trendingProductTitle}>{item.name}</Text>
-                    </ImageBackground>
-                </View>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('Details', {
+                        item: item,
+                    })
+                }}>
+                    <View style={[styles.trendingItemWrapper, {
+                        marginLeft: item.id == '1' ? 25 : 0
+                    }]}>
+                        <ImageBackground source={require('../assets/images/shadowBg.png')} style={styles.backgroundWithShadow}>
+                            <View style={styles.imageContainer}>
+                                <Image style={styles.productImage} source={item.image} />
+                            </View>
+                            <View style={styles.trendingProductDataWrapper}>
+                                <Text style={styles.tProductPrice}>₹{item.price}</Text>
+                                <Image source={require('../assets/images/filled-heart.png')} style={styles.heartIcon} />
+                            </View>
+                            <Text style={styles.trendingProductTitle}>{item.name}</Text>
+                        </ImageBackground>
+                    </View>
+                </TouchableOpacity>
+
             )
         }
     }
@@ -187,7 +201,7 @@ export default Home = () => {
     )
 }
 const win = Dimensions.get('window');
-const ratio = (win.width-50)/350;
+const ratio = (win.width - 50) / 350;
 console.log(ratio)
 const styles = StyleSheet.create({
     container: {
