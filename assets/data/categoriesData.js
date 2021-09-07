@@ -3,7 +3,7 @@ const categoriesData = [
         id: '1',
         image: require('../images/cat1.png'),
         text: 'Phones',
-        isSelected: false
+        isSelected: false 
     },
     {
         id: '2',
