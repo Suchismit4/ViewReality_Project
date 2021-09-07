@@ -25,12 +25,12 @@ export default Home = () => {
           {/* Header */}
           <View style={styles.headerWrapper}>
             <View style = {styles.searchWrapper}>
-              <Image source={require('../assets/images/heroicons-outline_menu.png')} style = {{width: 29}}></Image>
+              <Image source={require('../assets/images/heroicons-outline_menu.png')}></Image>
               <View style = {styles.searchBarWrapper}>
                 <Text style = {styles.searchPlaceHolderText}>Type stuff here!</Text>
                 <Image source={require('../assets/images/carbon_search.png')} style = {{width: 24}}></Image>
               </View>
-              <Image source={require('../assets/images/el_shopping-cart.png')} style = {{width: 29}}></Image>
+              <Image source={require()}></Image>
             </View>
           </View>
         </ScrollView>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
     top: 47,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-around',
   },
   searchBarWrapper : {
     justifyContent: 'center',
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 5,
     height: 46,
-    width: 280,
+    width: 257,
   },
   searchPlaceHolderText: {
     color: colors.black,
