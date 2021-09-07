@@ -65,6 +65,11 @@ export default Home = ({ navigation }) => {
     const renderJFYItem = ({ item }) => {
         if (item.cat == "jfy") {
             return (
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('Details', {
+                        item: item,
+                    })
+                }}>
                 <View style={[styles.trendingItemWrapper, {
                     marginLeft: item.id == '5' ? 25 : 0,
                     height: 135
@@ -87,6 +92,7 @@ export default Home = ({ navigation }) => {
                         <Text style={styles.trendingProductTitle}>{item.name}</Text>
                     </ImageBackground>
                 </View>
+                </TouchableOpacity>
             )
         }
     }
@@ -216,7 +222,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: 30,
-        marginHorizontal: 25,
+        paddingLeft: 25,
+        paddingRight: 31
     },
     bold: {
         fontFamily: 'Montserrat-Bold'
@@ -228,7 +235,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 43,
-        width: 43
+        width: 43,
     },
     headerSearchIconWrapper: {
         width: '10%',
@@ -237,10 +244,10 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: 43,
-        width: 43
+        width: 43,
     },
     headerBrandingTextWrapper: {
-        width: '78%',
+        width: '80%',
         alignItems: 'center',
     },
     headerBrandingText: {
