@@ -30,7 +30,7 @@ export default Home = () => {
                 <Text style = {styles.searchPlaceHolderText}>Type stuff here!</Text>
                 <Image source={require('../assets/images/carbon_search.png')} style = {{width: 24}}></Image>
               </View>
-              <Image source={require()}></Image>
+              {/* <Image source={require()}></Image> */}
             </View>
           </View>
         </ScrollView>

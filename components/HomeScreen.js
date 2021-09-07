@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
         width: 43
     },
     headerBrandingTextWrapper: {
-        width: '80%',
+        width: '78%',
         alignItems: 'center',
     },
     headerBrandingText: {
