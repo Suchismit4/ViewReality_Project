@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import * as React from 'react';
 import {
     Text, View, Image, SafeAreaView,
@@ -103,10 +104,14 @@ export default Home = ({ navigation }) => {
                             <Text style={styles.headerBrandingText}>VIEW REALITY</Text>
                         </View>
                         <View style={styles.headerSearchIconWrapper}>
+                            <TouchableOpacity onPress = {() => {
+                                navigation.navigate("Search")
+                            }}>
                             <Image source={require('../assets/images/carbon_search.png')} style={[styles.headerIcon], {
                                 width: 15.5,
                                 height: 15.5
                             }} />
+                            </TouchableOpacity>
                         </View>
                     </View>
 

@@ -12,7 +12,7 @@ import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
 
-export default Home = () => {
+export default Home = () => { 
 
     return (
         <View style={styles.container}>
