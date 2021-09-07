@@ -2,9 +2,10 @@ const productData = [
     {
         id: '1',
         name: 'Nike Seas.',
-        fullProductName: '',
+        fullProductName: 'Nikes Seas Blue, Air comfort',
         image: require('../images/kisspng-nike-free-air-force-shoe-sneakers-nike-shoes-transparent-background-5a7931690711e9.png'),
         largeImage: require('../images/large_NS.png'),
+        description: "A slightly heavier quality of cotton jersey defines the T-shirts for Spring Summer 2021, resulting in an enhanced retro appearance.",
         dX: 245,
         dY: 180.15,
         cat: "trending",
@@ -13,44 +14,76 @@ const productData = [
     {
         id: '2',
         name: 'Nike Seas.',
+        fullProductName: 'Nikes Seas Blue, Air Maxx',
         image: require('../images/kisspng-nike-free-air-force-shoe-sneakers-nike-shoes-transparent-background-5a7931690711e9.png'),
+        largeImage: require('../images/large_NS.png'),
+        description: "er dictum, metus ex dapibus dui, ut rutrum mi ex sit amet lorem. Integer vel ex quis lectus ultricies viverra. Phasellus nec diam at nisi porttitor aliquet. Cras nec congue urna. Etiam imperdiet sodales tellus in mollis. Phasellus mattis purus leo, in facilisis justo bibendum ac. Etiam scelerisque",
+        dX: 245,
+        dY: 180.15,
         cat: "trending",
-        price: "3,628"
+        price: "6,032"
     },
     {
         id: '3',
         name: 'Nike Seas.',
+        fullProductName: 'Nikes Seas Blue, Air discomfor',
         image: require('../images/kisspng-nike-free-air-force-shoe-sneakers-nike-shoes-transparent-background-5a7931690711e9.png'),
+        largeImage: require('../images/large_NS.png'),
+        description: "In hac habitasse platea dictumst. Duis nec faucibus ex, nec varius velit. Proin sagittis ut orci at finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
+        dX: 245,
+        dY: 180.15,
         cat: "trending",
-        price: "5,037"
+        price: "3,928"
     },
     {
         id: '4',
         name: 'Nike Seas.',
+        fullProductName: 'Nikes Seas Blue, Rock',
         image: require('../images/kisspng-nike-free-air-force-shoe-sneakers-nike-shoes-transparent-background-5a7931690711e9.png'),
+        largeImage: require('../images/large_NS.png'),
+        description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique, odio vitae tempus pulvinar, magna est pretium tortor, a feugiat justo mi ut urna. Donec quis iaculis erat. ",
+        dX: 245,
+        dY: 180.15,
         cat: "trending",
-        price: "5,037"
+        price: "5,120"
     },
     {
         id: '5',
         name: 'SkullCandy.',
         image: require('../images/image-removebg-preview.png'),
         cat: "jfy",
-        price: "1,091"
+        price: "1,091",
+        fullProductName: 'SkullCandy Headphones with 9mm drivers',
+        largeImage: require('../images/large_SC.png'),
+        description: "Nunc sit amet augue volutpat, imperdiet eros vehicula, condimentum purus. Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
+        dX: 210,
+        dY: 210,
     },
     {
         id: '6',
         name: 'Monitor.',
         image: require('../images/Acer_Monitor_K243Y_K273_gallery_01-removebg-preview.png'),
         cat: "jfy",
-        price: "12,072"
+        price: "12,072", 
+        fullProductName: '24" Maximus Monitor with 69hz display',
+        largeImage: require('../images/large_MO.png'),
+        description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
+        dX: 241.48,
+        dY: 180.15,
+
     },
     {
         id: '7',
         name: 'GTA V.',
         image: require('../images/image-removebg-previewgta.png'),
         cat: "jfy",
-        price: "2,091"
+        price: "2,091",
+        fullProductName: 'GTA V DVD',
+        largeImage: require('../images/large_GTA.png'),
+        description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
+        dX: 190,
+        dY: 190,
+
     },
 ];
 
