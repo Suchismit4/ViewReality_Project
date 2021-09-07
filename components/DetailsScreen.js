@@ -21,7 +21,9 @@ export default DetailsScreen = ({ route, navigation }) => {
                     {/* Header */}
                     <View style={styles.headerWrapper}>
                         <View style={styles.headerLeftGoBack}>
-                            <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
+                            <TouchableOpacity onPress={() => navigation.goBack()}>
+                                <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
+                            </TouchableOpacity>
                         </View>
                         <View style={styles.headerRightCart}>
                             <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 18, height: 18 }} />
@@ -30,7 +32,7 @@ export default DetailsScreen = ({ route, navigation }) => {
 
                     {/* Showcase Product */}
                     <View style={styles.productImageWrapper}>
-                        <Image source={item.largeImage} style={{width: item.dX, height: item.dY}}></Image>
+                        <Image source={item.largeImage} style={{ width: item.dX, height: item.dY }}></Image>
                     </View>
 
                     {/* View Info Container Box */}
@@ -111,7 +113,7 @@ const styles = StyleSheet.create({
         },
         shadowOpacity: 0.46,
         shadowRadius: 11.14,
-        
+
         elevation: 17,
     }
 })
