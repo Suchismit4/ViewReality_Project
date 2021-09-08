@@ -93,7 +93,7 @@ export default Home = ({ route, navigation }) => {
         setSelectedCategory(item.id)
       }}>
         <View style={[
-          { marginLeft: item.id == '1' ? 14 : 0},
+          { marginLeft: item.id == '1' ? 25 : 0},
           item.id == selectedCategory ? styles.selectedSearchCategoryWrapper : styles.searchCategoryWrapper
         ]}>
           <Text style={styles.searchCategoryText}>{item.text}</Text>

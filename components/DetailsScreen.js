@@ -57,13 +57,15 @@ export default DetailsScreen = ({ route, navigation }) => {
                                 {item.description}
                             </Text>
                         </View>
-                        <TouchableOpacity onPress={() =>
+                        <TouchableOpacity onPress={() => {
+                            const _item = cartData.find(o => o.name == item.name);
                             cartData.push({
                                 name: item.name,
                                 price: item.price,
-                                id: item.id
+                                id: item.id,
+                                quantity: _item == undefined ? 1 : _item.quantity
                             })
-                        }>
+                        }}>
                             <View style={styles.orderButton}>
                                 <Text style={styles.orderButtonText}>Add to cart</Text>
                                 <Text style={styles.orderButtonTextPrice}>₹{item.price}</Text>
