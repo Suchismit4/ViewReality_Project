@@ -27,7 +27,7 @@ export default DetailsScreen = ({ route, navigation }) => {
                         </TouchableOpacity>
 
                         <View style={styles.headerRightCart}>
-                            <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 18, height: 18 }} />
+                            <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 15.5, height: 15.5 }} />
                         </View>
                     </View>
 
