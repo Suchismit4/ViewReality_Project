@@ -6,7 +6,8 @@ import {
     FlatList,
     ImageBackground,
     Dimensions,
-    TouchableOpacity
+    TouchableOpacity,
+    Touchable
 } from 'react-native'
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors'
@@ -25,10 +26,11 @@ export default DetailsScreen = ({ route, navigation }) => {
                                 <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
                             </View>
                         </TouchableOpacity>
-
+                        <Touchable onPress={() => { navigation.navigate('Cart') }} >
                         <View style={styles.headerRightCart}>
                             <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 18, height: 18 }} />
                         </View>
+                        </Touchable>
                     </View>
 
                     {/* Showcase Product */}
@@ -67,6 +69,7 @@ export default DetailsScreen = ({ route, navigation }) => {
         </View>
     )
 }
+
 const win = Dimensions.get('window');
 const ratio = (win.width - 50) / 350;
 console.log(ratio)
