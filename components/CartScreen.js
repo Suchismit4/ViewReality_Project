@@ -105,13 +105,17 @@ export default DetailsScreen = ({ route, navigation }) => {
                         </View>
                         <View style={styles.seperator}></View>
                     </View>
-                    <View style = {{height: Dimensions.get('window').height - 90, paddingBottom: 60}}>
+                    <View style = {{height: Dimensions.get('window').height - 200}}>
                     <FlatList 
                         data={list}
                         renderItem={({item, index}) => renderCartItem(item, index)}
                         keyExtractor={item => item.id}
                         showsVerticalScrollIndicator={false}
                         extraData={refresh}
+                        ListFooterComponent = {(
+                            <View></View>
+                        )}
+                        ListFooterComponentStyle = {{height: 50}}
                     />
                     </View>
 

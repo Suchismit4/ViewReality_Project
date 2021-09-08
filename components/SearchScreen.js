@@ -207,7 +207,7 @@ export default Home = ({ route, navigation }) => {
             ListFooterComponent = {(
               <View></View>
             )}
-            ListFooterComponentStyle = {{height: 200}}
+            ListFooterComponentStyle = {{height: 150}}
 
           />
         </View>
