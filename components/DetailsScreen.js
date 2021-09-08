@@ -12,6 +12,7 @@ import {
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
+const { cartData } = require('../assets/data/cartData')
 
 export default DetailsScreen = ({ route, navigation }) => {
     const { item } = route.params;
@@ -27,9 +28,9 @@ export default DetailsScreen = ({ route, navigation }) => {
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => { navigation.navigate('Cart') }} >
-                        <View style={styles.headerRightCart}>
-                            <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 15.5, height: 15.5 }} />
-                        </View>
+                            <View style={styles.headerRightCart}>
+                                <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 15.5, height: 15.5 }} />
+                            </View>
                         </TouchableOpacity>
                     </View>
 
@@ -56,11 +57,16 @@ export default DetailsScreen = ({ route, navigation }) => {
                                 {item.description}
                             </Text>
                         </View>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() =>
+                            cartData.push({
+                                name: item.name,
+                                price: item.price,
+                                id: item.id
+                            })
+                        }>
                             <View style={styles.orderButton}>
                                 <Text style={styles.orderButtonText}>Add to cart</Text>
                                 <Text style={styles.orderButtonTextPrice}>₹{item.price}</Text>
-
                             </View>
                         </TouchableOpacity>
                     </View>

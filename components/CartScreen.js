@@ -11,12 +11,83 @@ import {
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
+import { cartData } from '../assets/data/cartData';
+import { useState } from 'react';
 
 export default DetailsScreen = ({ route, navigation }) => {
+    const [refresh=true, updateRefresh] = useState();
+
+    let list = [];
+    var totalPrice = 0;
+    for (var i = 0; i < cartData.length; i++) {
+        const item = list.find(o => o.name == cartData[i].name);
+        if (item == undefined) {
+            list.push({
+                name: cartData[i].name,
+                quantity: 1,
+                price: parseInt(cartData[i].price.replace(',', '')),
+                id: cartData[i].id
+            })
+        } else {
+            item.quantity += 1;
+        }
+    }
+
+    const renderCartItem = (item, index) => {
+        const product = productsData.find(o => o.name == item.name);
+        return (
+            <View style={[styles.cartItemWrapper, {
+                marginBottom: index == list.length ? 500 : 35
+            }]}>
+                <View style={styles.rowProductDetails}>
+                    <View>
+                        <TouchableOpacity onPress={() => {
+                            navigation.navigate('Details', {
+                                item: product,
+                            })
+                        }}>
+                            <Image source={product.largeImage} style={styles.productImage} />
+                        </TouchableOpacity>
+                        <View style={styles.quantityWrapper}>
+                            <View style={[styles.controlButton, { borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }]}><Text style={styles.insideControl}>-</Text></View>
+                            <View style={styles.quantity}><Text style={styles.quantityText}>{item.quantity}</Text></View>
+                            <View style={[styles.controlButton, { borderTopRightRadius: 3, borderBottomRightRadius: 3 }]}><Text style={styles.insideControl}>+</Text></View>
+                        </View>
+                    </View>
+                    <View style={styles.productDetails}>
+                        <Text style={styles.productName}>{product.name}</Text>
+                        <Text style={styles.productPrice}>₹{product.price}</Text>
+                        <Text style={styles.productStock}>Only {Math.floor(Math.random() * 15) + 1} left in stock.</Text>
+                        <Text style={styles.productSoldBy}>Sold by <Text style={styles.soldBySpan}>Delhi Public School</Text></Text>
+                        <View style={styles.controls}>
+                            <TouchableOpacity onPress={() => {
+                                const __item = cartData.find(o => o.name == item.name);
+                                const index = cartData.indexOf(__item);
+                                cartData.splice(index, 1);
+                                const _item = list.find(o => o.name == item.name);
+                                const _index = list.indexOf(_item);
+                                list.splice(_index, 1);
+                                updateRefresh(!refresh);
+                            }}>
+                                <View style={styles.deleteButton}>
+                                    <Text style={styles.buttonText}>Delete</Text>
+                                </View>
+                            </TouchableOpacity>
+                            <TouchableOpacity>
+                                <View style={styles.deleteButton}>
+                                    <Text style={styles.buttonText}>Save for later</Text>
+                                </View>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </View>
+        )
+    }
+
     return (
         <View style={styles.container}>
             <SafeAreaView>
-                <ScrollView contentInsetAdjustmentBehavior="automatic" showsVerticalScrollIndicator={false}>
                     {/* Header */}
                     <View style={styles.headerWrapper}>
                         <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -34,40 +105,17 @@ export default DetailsScreen = ({ route, navigation }) => {
                         </View>
                         <View style={styles.seperator}></View>
                     </View>
-
-                    <View style={styles.cartItemWrapper}>
-                        <View style={styles.rowProductDetails}>
-                            <View>
-                                <Image source={require('../assets/images/large_NS.png')} style={styles.productImage} />
-                                <View style={styles.quantityWrapper}>
-                                    <View style={[styles.controlButton, { borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }]}><Text style={styles.insideControl}>-</Text></View>
-                                    <View style={styles.quantity}><Text style={styles.quantityText}>2</Text></View>
-                                    <View style={[styles.controlButton, { borderTopRightRadius: 3, borderBottomRightRadius: 3 }]}><Text style={styles.insideControl}>+</Text></View>
-                                </View>
-                            </View>
-                            <View style={styles.productDetails}>
-                                <Text style={styles.productName}>your mom's ass</Text>
-                                <Text style={styles.productPrice}>₹69.420</Text>
-                                <Text style={styles.productStock}>Only {Math.floor(Math.random() * 15) + 1} left in stock.</Text>
-                                <Text style={styles.productSoldBy}>Sold by <Text style={styles.soldBySpan}>Ribu's mom collection</Text></Text>
-                                <View style={styles.controls}>
-                                    <TouchableOpacity>
-                                        <View style={styles.deleteButton}>
-                                            <Text style={styles.buttonText}>Delete</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity>
-                                        <View style={styles.deleteButton}>
-                                            <Text style={styles.buttonText}>Save for later</Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
+                    <View style = {{height: Dimensions.get('window').height - 90, paddingBottom: 60}}>
+                    <FlatList 
+                        data={list}
+                        renderItem={({item, index}) => renderCartItem(item, index)}
+                        keyExtractor={item => item.id}
+                        showsVerticalScrollIndicator={false}
+                        extraData={refresh}
+                    />
                     </View>
 
 
-                </ScrollView>
             </SafeAreaView>
         </View>
     )
@@ -103,7 +151,7 @@ const styles = StyleSheet.create({
     cartItemWrapper: {
         height: 150,
         marginHorizontal: 25,
-        marginBottom: 15,
+        marginBottom: 35,
         padding: 5,
     },
     productImage: {
