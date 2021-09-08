@@ -39,7 +39,6 @@ const refreshListing = () => {
 }
 
 const renderProductListings = ({item}) => {
-  console.log("kal ana")
   if(searchText!="" && !item.fullProductName.toLowerCase().includes(searchText.toLowerCase())) return
   return(
     <TouchableOpacity>
@@ -49,7 +48,7 @@ const renderProductListings = ({item}) => {
         </View>
         <View style={{flexDirection: 'column', alignItems: 'flex-start', justifyContent: "space-around", width: "80%"}}>
           <Text style={styles.searchListingPrice}>${item.price}</Text>
-          <Text style={styles.searchListingName} >{item.fullProductName}</Text>
+          <Text style={styles.searchListingName} >{item.name}</Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -95,15 +94,6 @@ export default Home = ({navigation}) => {
               </View>
             </View>
           </View>
-          {/* <View style={styles.searchSection}>
-            <Text style={styles.searchTitles}>Your top categories</Text>
-            <View>
-
-            </View>
-          </View>
-          <View style={styles.searchSection}>
-            <Text style={styles.searchTitles}>Your top categories</Text>
-          </View> */}
           <View style={{height: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 10}}>
             <FlatList
               data={searchCategoriesData}
@@ -113,19 +103,14 @@ export default Home = ({navigation}) => {
               showsHorizontalScrollIndicator={false}
             />
           </View>
-          <View style = {{height: Dimensions.get('window').height-90, flexDirection: 'column', alignItems: 'center'}}>
+          <View style = {[{height: Dimensions.get('window').height-78, flexDirection: 'column'}, styles.containerOfAllProducts]}>
             <FlatList
               data={productsData}
               renderItem={renderProductListings}
               keyExtractor={item => item.id}
               numColumns={2}
               extraData={query}
-              // columnWrapperStyle={styles.columnWrapper}
-              // data={searchCategoriesData}
-              // renderItem={renderSearchCategory}
-              // keyExtractor={item => item.id}
-              // horizontal = {true}
-              // showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
             />
           </View>
       </SafeAreaView>
@@ -136,6 +121,10 @@ const win = Dimensions.get('window');
 const ratio = (win.width - 50) / 350;
 console.log(ratio);
 const styles = StyleSheet.create({
+  containerOfAllProducts: {
+    alignItems: 'center',
+    paddingBottom: 100,
+  },
   container: {
     flex: 1,
   },
@@ -245,7 +234,7 @@ const styles = StyleSheet.create({
     height: 99
   },
   searchListingPrice : {
-    "fontFamily": "Montserrat-Regular",
+    "fontFamily": "Montserrat-Bold",
     "fontWeight": "600",
     "fontSize": 24
   },

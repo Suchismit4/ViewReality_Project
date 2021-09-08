@@ -109,16 +109,18 @@ export default Home = ({ navigation }) => {
                         <View style={styles.headerBrandingTextWrapper}>
                             <Text style={styles.headerBrandingText}>VIEW REALITY</Text>
                         </View>
-                        <View style={styles.headerSearchIconWrapper}>
-                            <TouchableOpacity onPress = {() => {
+                        <TouchableOpacity onPress = {() => {
                                 navigation.navigate("Search")
                             }}>
+                        <View style={styles.headerSearchIconWrapper}>
+
                             <Image source={require('../assets/images/carbon_search.png')} style={[styles.headerIcon], {
                                 width: 15.5,
                                 height: 15.5
                             }} />
-                            </TouchableOpacity>
                         </View>
+                        </TouchableOpacity>
+
                     </View>
 
                     {/* Categories title */}

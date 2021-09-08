@@ -26,11 +26,11 @@ export default DetailsScreen = ({ route, navigation }) => {
                                 <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
                             </View>
                         </TouchableOpacity>
-                        <Touchable onPress={() => { navigation.navigate('Cart') }} >
+                        <TouchableOpacity onPress={() => { navigation.navigate('Cart') }} >
                         <View style={styles.headerRightCart}>
                             <Image source={require('../assets/images/el_shopping-cart.png')} style={{ width: 15.5, height: 15.5 }} />
                         </View>
-                        </Touchable>
+                        </TouchableOpacity>
                     </View>
 
                     {/* Showcase Product */}

@@ -13,7 +13,6 @@ import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
 
 export default DetailsScreen = ({ route, navigation }) => {
-    const { item } = route.params;
     return (
         <View style={styles.container}>
             <SafeAreaView>
