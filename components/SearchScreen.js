@@ -14,6 +14,8 @@ import {
   TouchableOpacity,
   RecyclerViewBackedScrollViewComponent,
   Touchable,
+  Picker,
+  createElement
 } from 'react-native';
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors';
@@ -21,14 +23,63 @@ import colors from '../assets/theme/colors';
 import productsData from '../assets/data/productsData';
 import { NavigationContainer } from '@react-navigation/native';
 import { tSTypeQuery } from '@babel/types';
+import selectDropDown from 'react-native-select-dropdown'
+import SelectDropdown from 'react-native-select-dropdown';
 
 let searchText = ""
 
-export default Home = ({ navigation }) => {
+const sortingOptions = [
+  {
+    order:"relevance",
+    title:"Sort by relevance"
+  },
+  {
+    order:"ascendingPrice",
+    title:"Sort by price (Lowest to Highest)"
+  },
+  {
+    order:"descendingPrice",
+    title:"Sort by price (Highest to Lowest)"
+  }
+]
 
+const ascending = (a, b) => {
+  if (parseInt(a.price) > parseInt(b.price)) {
+    return 1
+  } else if (parseInt(a.price) < parseInt(b.price)) {
+    return -1
+  } else {
+    return 0
+  }
+}
+
+const descending = (a, b) => {
+  if (parseInt(a.price) > parseInt(b.price)) {
+    return -1
+  } else if (parseInt(a.price) < parseInt(b.price)) {
+    return 1
+  } else {
+    return 0
+  }
+}
+
+const relevance = (a, b) => {
+  if (parseInt(a.id) > parseInt(b.id)) {
+    return 1
+  } else if (parseInt(a.id) < parseInt(b.id)) {
+    return -1
+  } else {
+    return 0
+  }
+}
+
+export default Home = ({ route, navigation }) => {
+
+  const {text, id} = route.params 
   const [query,setQuery] = useState();
-  const [category = "All Items", setCategory] = useState();
-  const [selectedCategory = "1", setSelectedCategory] = useState()
+  const [category = text, setCategory] = useState();
+  const [selectedCategory = id, setSelectedCategory] = useState()
+  const [sort = "relevance", updateSort] = useState();
   const updateSearch = (text) => {
     //search logic here
     searchText = text
@@ -60,9 +111,7 @@ export default Home = ({ navigation }) => {
             item: item,
         })
       }}>
-        <View style={[styles.searchListingWrapper, {
-          marginBottom: item.id === '7' ? 100 : 0
-        }]}>
+        <View style={[styles.searchListingWrapper]}>
           <View>
             <Image style={styles.searchListingImage} source={item.largeImage}></Image>
           </View>
@@ -108,6 +157,35 @@ export default Home = ({ navigation }) => {
 
           </View>
         </View>
+
+        {/* Drop down for sorting */}
+        <View style={{width: "100%", flexDirection: "column", alignItems: 'center'}}>
+          <SelectDropdown
+            buttonStyle={styles.sortDropdownContainer}
+            buttonTextStyle={{"fontFamily": "Montserrat-Regular","fontWeight": "600","fontSize": 15,}}
+            dropdownStyle={styles.sortDropdown}
+            rowTextStyle={{"fontFamily": "Montserrat-Regular","fontWeight": "600","fontSize": 15,}}
+            data = {sortingOptions}
+            defaultButtonText = {sortingOptions[0].title}
+            onSelect = {(selectedItem, index) => {
+              if (selectedItem.order == "ascendingPrice") {
+                productsData.sort(ascending)
+              } else if (selectedItem.order == "descendingPrice") {
+                productsData.sort(descending)
+              } else if (selectedItem.order == "relevance") {
+                productsData.sort(relevance)
+              }
+              updateSort(selectedItem.order)
+            }}
+            rowTextForSelection = {(selectedItem, index) => {
+              return `${selectedItem.title}`
+            }}
+            buttonTextAfterSelection = {(selectedItem, index) => {
+              return `${selectedItem.title}`
+            }}
+          >
+          </SelectDropdown>
+        </View>
         <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 10, }}>
           <FlatList
             data={categoriesData}
@@ -118,16 +196,22 @@ export default Home = ({ navigation }) => {
             extraData = {selectedCategory}
           />
         </View>
-        <View style={[{ height: Dimensions.get('window').height - 90, flexDirection: 'column' }, styles.containerOfAllProducts]}>
+        <View style={[{ height: Dimensions.get('window').height - 90, flexDirection: 'column'}, styles.containerOfAllProducts]}>
           <FlatList
             data={productsData}
             renderItem={renderProductListings}
             keyExtractor={item => item.id}
             numColumns={2}
-            extraData={query}
+            extraData={query, sort}
             showsVerticalScrollIndicator={false}
+            ListFooterComponent = {(
+              <View></View>
+            )}
+            ListFooterComponentStyle = {{height: 200}}
+
           />
         </View>
+        
       </SafeAreaView>
     </View>
   );
@@ -277,7 +361,33 @@ const styles = StyleSheet.create({
   },
   columnWrapper: {
     margin: 10
-  }
+  },
+  sortModal : {
+    width: "100%",
+    height: "70%",
+    backgroundColor: colors.red,
+    borderTopRightRadius: 20,
+    borderTopLeftRadius: 20
+  },
+  sortDropdownContainer: {
+    backgroundColor: colors.white,
+    width: 360,
+    height: 50,
+    borderRadius: 2000,
+    marginBottom: 10,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 5,
+  },
+  sortDropdown : {
+    borderRadius: 10,
+    height: 150
+  },
 
 });
 

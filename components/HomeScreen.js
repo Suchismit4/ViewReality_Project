@@ -16,7 +16,12 @@ import productsData from '../assets/data/productsData';
 export default Home = ({ navigation }) => {
     const renderCategoryItem = ({ item }) => {
         return (
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => {
+                navigation.navigate("Search", {
+                    id: item.id,
+                    text: item.text
+                })
+            }}>
                 <View style={[styles.categoriesItemWrapper, {
                     marginLeft: item.id == '1' ? 25 : 0
                 }]}>
@@ -106,7 +111,10 @@ export default Home = ({ navigation }) => {
                             <Text style={styles.headerBrandingText}>VIEW REALITY</Text>
                         </View>
                         <TouchableOpacity onPress = {() => {
-                                navigation.navigate("Search")
+                                navigation.navigate("Search", {
+                                    id: 1,
+                                    text: "All Items"
+                                })
                             }}>
                         <View style={styles.headerSearchIconWrapper}>
 

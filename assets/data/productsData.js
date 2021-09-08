@@ -10,7 +10,7 @@ const productData = [
         dY: 180.15,
         cat: "trending",
         searchCat: "footwear",
-        price: "4,020"
+        price: "4020"
     },
     {
         id: '2',
@@ -23,7 +23,7 @@ const productData = [
         dY: 180.15,
         searchCat: "footwear",
         cat: "trending",
-        price: "6,032"
+        price: "6032"
     },
     {
         id: '3',
@@ -36,7 +36,7 @@ const productData = [
         dY: 180.15,
         searchCat: "footwear",
         cat: "trending",
-        price: "3,928"
+        price: "3928"
     },
     {
         id: '4',
@@ -49,14 +49,14 @@ const productData = [
         dY: 180.15,
         searchCat: "footwear",
         cat: "trending",
-        price: "5,120"
+        price: "5120"
     },
     {
         id: '5',
         name: 'SkullCandy.',
         image: require('../images/image-removebg-preview.png'),
         cat: "jfy",
-        price: "1,091",
+        price: "1091",
         fullProductName: 'SkullCandy Headphones with 9mm drivers',
         largeImage: require('../images/large_SC.png'),
         description: "Nunc sit amet augue volutpat, imperdiet eros vehicula, condimentum purus. Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
@@ -69,7 +69,7 @@ const productData = [
         name: 'Monitor.',
         image: require('../images/Acer_Monitor_K243Y_K273_gallery_01-removebg-preview.png'),
         cat: "jfy",
-        price: "12,072", 
+        price: "12072", 
         fullProductName: '24" Maximus Monitor with 69hz display',
         largeImage: require('../images/large_MO.png'),
         description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
@@ -84,7 +84,7 @@ const productData = [
         name: 'GTA V.',
         image: require('../images/image-removebg-previewgta.png'),
         cat: "jfy",
-        price: "2,091",
+        price: "2091",
         fullProductName: 'GTA V DVD',
         largeImage: require('../images/large_GTA.png'),
         description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
