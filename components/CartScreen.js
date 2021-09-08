@@ -152,6 +152,7 @@ export default DetailsScreen = ({ route, navigation }) => {
                         ListFooterComponentStyle = {{height: 50}}
                     />
                 </View>
+                </View>
 
 
             </SafeAreaView>
