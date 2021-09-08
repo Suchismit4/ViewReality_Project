@@ -53,7 +53,6 @@ export default DetailsScreen = ({ route, navigation }) => {
         item.quantity += 1;
         item = cartData.find(o => o.name == name);
         item.quantity += 1;
-        console.log(item)
 
         updateRefresh(!refresh);
 
@@ -61,11 +60,10 @@ export default DetailsScreen = ({ route, navigation }) => {
     }
 
     const renderCartItem = (item, index) => {
-        console.log(item)
         const product = productsData.find(o => o.name == item.name);
         return (
             <View style={[styles.cartItemWrapper, {
-                marginBottom: index == list.length ? 500 : 35
+                marginBottom: 35
             }]}>
                 <View style={styles.rowProductDetails}>
                     <View>
@@ -125,10 +123,10 @@ export default DetailsScreen = ({ route, navigation }) => {
         <View style={styles.container}>
             <SafeAreaView>
                 {/* Header */}
-                <View style={styles.headerWrapper}>
+                <View style={[styles.headerWrapper]}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <View style={styles.headerLeftGoBack}>
-                            <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
+                            <Image source={require('../assets/images/goback.png')} style={{ width: 18, height: 18 }} />
                         </View>
                     </TouchableOpacity>
                 </View>
@@ -139,7 +137,7 @@ export default DetailsScreen = ({ route, navigation }) => {
                     <View style={styles.orderButton}>
                         <Text style={styles.orderText}>Proceed to Buy ({list.length} items)</Text>
                     </View>
-                    <View style = {{height: Dimensions.get('window').height - 200}}>
+                    <View style = {{height: Dimensions.get('window').height - 150}}>
                     <FlatList 
                         data={list}
                         renderItem={({ item, index }) => renderCartItem(item, index)}
@@ -149,8 +147,9 @@ export default DetailsScreen = ({ route, navigation }) => {
                         ListFooterComponent = {(
                             <View></View>
                         )}
-                        ListFooterComponentStyle = {{height: 50}}
+                        ListFooterComponentStyle = {{height: 80}}
                     />
+                    </View>
                 </View>
                 </View>
 
@@ -189,7 +188,8 @@ const styles = StyleSheet.create({
     },
     cartItemWrapper: {
         height: 150,
-        marginHorizontal: 25,
+        width: "100%",
+        // marginHorizontal: 25,
         marginBottom: 35,
         padding: 5,
     },
@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     rowProductDetails: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     productDetails: {
         marginLeft: 30,
@@ -289,17 +289,23 @@ const styles = StyleSheet.create({
     },
     shoppingCartControl: {
         paddingBottom: 20,
+        flexDirection: 'column',
+        alignItems: 'center',
         marginHorizontal: 25
+        
     },
     headerText: {
         fontFamily: "Montserrat-Bold",
-        fontSize: 15
+        fontSize: 15,
+        alignSelf: "flex-start"
     },
     subTotal: {
         fontFamily: "Montserrat-Regular",
         fontSize: 20,
         color: colors.black,
-        marginTop: 15
+        marginTop: 15,
+        alignSelf: "flex-start"
+
     },
     subTotalText: {
         fontFamily: "Montserrat-Bold"
@@ -310,7 +316,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         padding: 13,
         borderRadius: 7,
-        marginTop: 15
+        marginTop: 15,
+        width: "100%",
+        marginBottom: 20
     },
     orderText: {
         fontFamily: "Montserrat-Regular",
