@@ -8,14 +8,14 @@ import {
     Dimensions,
     TouchableOpacity
 } from 'react-native'
-import categoriesData from '../assets/data/categoriesData';
+import NumberFormat from 'react-number-format';
 import colors from '../assets/theme/colors'
 import productsData from '../assets/data/productsData';
 import { cartData } from '../assets/data/cartData';
 import { useState } from 'react';
 
 export default DetailsScreen = ({ route, navigation }) => {
-    const [refresh=true, updateRefresh] = useState();
+    const [refresh = true, updateRefresh] = useState();
 
     let list = [];
     var totalPrice = 0;
@@ -24,7 +24,7 @@ export default DetailsScreen = ({ route, navigation }) => {
         if (item == undefined) {
             list.push({
                 name: cartData[i].name,
-                quantity: 1,
+                quantity: cartData[i].quantity,
                 price: parseInt(cartData[i].price.replace(',', '')),
                 id: cartData[i].id
             })
@@ -32,8 +32,36 @@ export default DetailsScreen = ({ route, navigation }) => {
             item.quantity += 1;
         }
     }
+    for (var i = 0; i < list.length; i++) {
+        totalPrice += (list[i].price * list[i].quantity);
+    }
+
+    function ReduceQuantity(name) {
+        console.log(name)
+        let item = list.find(o => o.name == name);
+        if (item.quantity > 1) item.quantity -= 1;
+        item = cartData.find(o => o.name == name);
+        if (item.quantity > 1) item.quantity -= 1;
+
+        updateRefresh(!refresh);
+
+        return true;
+    }
+
+    function AddQuantity(name) {
+        let item = list.find(o => o.name == name);
+        item.quantity += 1;
+        item = cartData.find(o => o.name == name);
+        item.quantity += 1;
+        console.log(item)
+
+        updateRefresh(!refresh);
+
+        return true;
+    }
 
     const renderCartItem = (item, index) => {
+        console.log(item)
         const product = productsData.find(o => o.name == item.name);
         return (
             <View style={[styles.cartItemWrapper, {
@@ -49,9 +77,17 @@ export default DetailsScreen = ({ route, navigation }) => {
                             <Image source={product.largeImage} style={styles.productImage} />
                         </TouchableOpacity>
                         <View style={styles.quantityWrapper}>
+                            <TouchableOpacity onPress={() => {
+                                ReduceQuantity(item.name)
+                            }} > 
                             <View style={[styles.controlButton, { borderTopLeftRadius: 3, borderBottomLeftRadius: 3 }]}><Text style={styles.insideControl}>-</Text></View>
+                            </TouchableOpacity>
                             <View style={styles.quantity}><Text style={styles.quantityText}>{item.quantity}</Text></View>
-                            <View style={[styles.controlButton, { borderTopRightRadius: 3, borderBottomRightRadius: 3 }]}><Text style={styles.insideControl}>+</Text></View>
+                            <TouchableOpacity onPress={() => {
+                                AddQuantity(item.name)
+                            }}>
+                                <View style={[styles.controlButton, { borderTopRightRadius: 3, borderBottomRightRadius: 3 }]}><Text style={styles.insideControl}>+</Text></View>
+                            </TouchableOpacity>
                         </View>
                     </View>
                     <View style={styles.productDetails}>
@@ -88,32 +124,32 @@ export default DetailsScreen = ({ route, navigation }) => {
     return (
         <View style={styles.container}>
             <SafeAreaView>
-                    {/* Header */}
-                    <View style={styles.headerWrapper}>
-                        <TouchableOpacity onPress={() => navigation.goBack()}>
-                            <View style={styles.headerLeftGoBack}>
-                                <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
-                            </View>
-                        </TouchableOpacity>
-                    </View>
-
-                    <View style={styles.shoppingCartControl}>
-                        <Text style={styles.headerText}>Shopping cart</Text>
-                        <Text style={styles.subTotal}>Subtotal: ₹<Text style={styles.subTotalText}>1,294</Text> </Text>
-                        <View style={styles.orderButton}>
-                            <Text style={styles.orderText}>Proceed to Buy (1 items)</Text>
+                {/* Header */}
+                <View style={styles.headerWrapper}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <View style={styles.headerLeftGoBack}>
+                            <Image source={require('../assets/images/goback.png')} style={{ width: 25, height: 25 }} />
                         </View>
-                        <View style={styles.seperator}></View>
+                    </TouchableOpacity>
+                </View>
+
+                <View style={styles.shoppingCartControl}>
+                    <Text style={styles.headerText}>Shopping cart</Text>
+                    <Text style={styles.subTotal}>Subtotal: ₹<Text style={styles.subTotalText}>{totalPrice}</Text> </Text>
+                    <View style={styles.orderButton}>
+                        <Text style={styles.orderText}>Proceed to Buy ({list.length} items)</Text>
                     </View>
-                    <View style = {{height: Dimensions.get('window').height - 90, paddingBottom: 60}}>
-                    <FlatList 
+                    <View style={styles.seperator}></View>
+                </View>
+                <View style={{ height: Dimensions.get('window').height - 90, paddingBottom: 60 }}>
+                    <FlatList
                         data={list}
-                        renderItem={({item, index}) => renderCartItem(item, index)}
+                        renderItem={({ item, index }) => renderCartItem(item, index)}
                         keyExtractor={item => item.id}
                         showsVerticalScrollIndicator={false}
                         extraData={refresh}
                     />
-                    </View>
+                </View>
 
 
             </SafeAreaView>
