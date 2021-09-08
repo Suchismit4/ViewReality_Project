@@ -151,8 +151,6 @@ export default DetailsScreen = ({ route, navigation }) => {
                     />
                     </View>
                 </View>
-
-
             </SafeAreaView>
         </View>
     )
