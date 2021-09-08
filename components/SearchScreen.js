@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   RecyclerViewBackedScrollViewComponent,
   Touchable,
-  Picker,
+  Keyboard,
   createElement
 } from 'react-native';
 import categoriesData from '../assets/data/categoriesData';
@@ -93,7 +93,7 @@ export default Home = ({ route, navigation }) => {
         setSelectedCategory(item.id)
       }}>
         <View style={[
-          { marginLeft: item.id == '1' ? 25 : 0},
+          { marginLeft: item.id == '1' ? 14 : 0},
           item.id == selectedCategory ? styles.selectedSearchCategoryWrapper : styles.searchCategoryWrapper
         ]}>
           <Text style={styles.searchCategoryText}>{item.text}</Text>
@@ -147,7 +147,11 @@ export default Home = ({ route, navigation }) => {
                   updateSearch(text)
                 }}
               />
-              <Image source={require('../assets/images/carbon_search.png')} style={{ width: 15, height: 15, resizeMode: 'contain' }}></Image>
+              <TouchableOpacity onPress = {()=> {
+                Keyboard.dismiss()
+              }}>
+                <Image source={require('../assets/images/carbon_search.png')} style={{ width: 15, height: 15, resizeMode: 'contain' }}></Image>
+              </TouchableOpacity>
             </View>
             <TouchableOpacity  onPress={() => { navigation.navigate('Cart') }}>
             <View style={styles.iconWrapper}>

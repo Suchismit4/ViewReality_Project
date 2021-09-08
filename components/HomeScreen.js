@@ -104,9 +104,11 @@ export default Home = ({ navigation }) => {
                 <ScrollView contentInsetAdjustmentBehavior="automatic" showsVerticalScrollIndicator={false}>
                     {/* Header */}
                     <View style={styles.headerWrapper}>
-                        <View style={styles.headerHamburgerIconWrapper}>
-                            <Image source={require('../assets/images/heroicons-outline_menu.png')} style={styles.headerIcon} />
-                        </View>
+                        <TouchableOpacity onPress={() => { navigation.navigate('Cart') }}>
+                            <View style={styles.headerHamburgerIconWrapper}>
+                                <Image source={require('../assets/images/el_shopping-cart.png')} style={styles.headerIcon} />
+                            </View>
+                        </TouchableOpacity>
                         <View style={styles.headerBrandingTextWrapper}>
                             <Text style={styles.headerBrandingText}>VIEW REALITY</Text>
                         </View>
@@ -237,7 +239,7 @@ const styles = StyleSheet.create({
     headerHamburgerIconWrapper: {
         width: '10%',
         backgroundColor: colors.white,
-        borderRadius: 200,
+        borderRadius: 11,
         justifyContent: 'center',
         alignItems: 'center',
         height: 43,
@@ -262,9 +264,9 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     headerIcon: {
-        width: 20,
-        height: 20,
-        marginTop: 3
+        width: 16,
+        height: 16,
+        // marginTop: 3
     },
     categoriesTitleWrapper: {
         marginTop: 45,
