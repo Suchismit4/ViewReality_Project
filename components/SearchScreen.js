@@ -13,6 +13,7 @@ import {
   Dimensions,
   TouchableOpacity,
   RecyclerViewBackedScrollViewComponent,
+  Touchable,
 } from 'react-native';
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors';
@@ -22,14 +23,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { tSTypeQuery } from '@babel/types';
 
 let searchText = ""
-let state = {refresh : new Map()}
+let state = { refresh: new Map() }
 
-const renderSearchCategory = ({item}) => {
+const renderSearchCategory = ({ item }) => {
   return (
     <TouchableOpacity >
-        <View style={styles.searchCategoryWrapper}>
-          <Text style={styles.searchCategoryText}>{item.title}</Text>
-        </View>
+      <View style={[styles.searchCategoryWrapper, {
+        marginLeft: item.id == '1' ? 19 : 0
+      }]}>
+        <Text style={styles.searchCategoryText}>{item.title}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -38,15 +41,17 @@ const refreshListing = () => {
   state.refresh = new Map()
 }
 
-const renderProductListings = ({item}) => {
-  if(searchText!="" && !item.fullProductName.toLowerCase().includes(searchText.toLowerCase())) return
-  return(
+const renderProductListings = ({ item }) => {
+  if (searchText != "" && !item.fullProductName.toLowerCase().includes(searchText.toLowerCase())) return
+  return (
     <TouchableOpacity>
-      <View style={styles.searchListingWrapper}>
+      <View style={[styles.searchListingWrapper, {
+        marginBottom: item.id === '7' ? 100 : 0
+      }]}>
         <View>
           <Image style={styles.searchListingImage} source={item.image}></Image>
         </View>
-        <View style={{flexDirection: 'column', alignItems: 'flex-start', justifyContent: "space-around", width: "80%"}}>
+        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: "space-around", width: "80%" }}>
           <Text style={styles.searchListingPrice}>${item.price}</Text>
           <Text style={styles.searchListingName} >{item.name}</Text>
         </View>
@@ -56,9 +61,9 @@ const renderProductListings = ({item}) => {
 }
 
 
-export default Home = ({navigation}) => {  
+export default Home = ({ navigation }) => {
 
-  const [query,setQuery] = useState();
+  const [query, setQuery] = useState();
   const updateSearch = (text) => {
     //search logic here
     searchText = text
@@ -68,51 +73,55 @@ export default Home = ({navigation}) => {
   return (
     <View style={styles.container}>
       <SafeAreaView>
-          {/* Header */}
-          <View style={styles.headerWrapper}>
-            <View style = {styles.searchWrapper}>
+        {/* Header */}
+        <View style={styles.headerWrapper}>
+          <View style={styles.searchWrapper}>
+            <TouchableOpacity onPress={() => navigation.goBack()}>
               <View style={styles.iconWrapper}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                  <Image source={require('../assets/images/goback.png')} style = {{width: 18, resizeMode: 'contain'}}></Image>
-                </TouchableOpacity>
+                <Image source={require('../assets/images/goback.png')} style={{ width: 18, resizeMode: 'contain' }}></Image>
               </View>
-              <View style = {styles.searchBarWrapper}>
-                <TextInput 
-                  style = {styles.searchPlaceHolderText} 
-                  value={query}
-                  placeholder="Type here to search" 
-                  placeholderTextColor = {"#000"}
-                  onChangeText={(text) => {
-                    setQuery(text)
-                    updateSearch(text)
-                  }}
-                />
-                <Image source={require('../assets/images/carbon_search.png')} style = {{width: 24}}></Image>
-              </View>
-              <View style = {styles.iconWrapper}>
-                <Image source={require('../assets/images/el_shopping-cart.png')} style={{height: 15.5, width: 15.5}}></Image>
-              </View>
+            </TouchableOpacity>
+
+            <View style={styles.searchBarWrapper}>
+              <TextInput
+                style={styles.searchPlaceHolderText}
+                value={query}
+                placeholder="Type here to search"
+                placeholderTextColor={"#000"}
+                onChangeText={(text) => {
+                  setQuery(text)
+                  updateSearch(text)
+                }}
+              />
+              <Image source={require('../assets/images/carbon_search.png')} style={{ width: 15, height: 15, resizeMode: 'contain' }}></Image>
             </View>
+            <TouchableOpacity  onPress={() => { navigation.navigate('Cart') }}>
+            <View style={styles.iconWrapper}>
+              <Image source={require('../assets/images/el_shopping-cart.png')} style={{ height: 15.5, width: 15.5 }}></Image>
+            </View>
+              </TouchableOpacity>
+
           </View>
-          <View style={{height: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 10}}>
-            <FlatList
-              data={searchCategoriesData}
-              renderItem={renderSearchCategory}
-              keyExtractor={item => item.id}
-              horizontal = {true}
-              showsHorizontalScrollIndicator={false}
-            />
-          </View>
-          <View style = {[{height: Dimensions.get('window').height-78, flexDirection: 'column'}, styles.containerOfAllProducts]}>
-            <FlatList
-              data={productsData}
-              renderItem={renderProductListings}
-              keyExtractor={item => item.id}
-              numColumns={2}
-              extraData={query}
-              showsVerticalScrollIndicator={false}
-            />
-          </View>
+        </View>
+        <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 10, }}>
+          <FlatList
+            data={searchCategoriesData}
+            renderItem={renderSearchCategory}
+            keyExtractor={item => item.id}
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+          />
+        </View>
+        <View style={[{ height: Dimensions.get('window').height - 90, flexDirection: 'column' }, styles.containerOfAllProducts]}>
+          <FlatList
+            data={productsData}
+            renderItem={renderProductListings}
+            keyExtractor={item => item.id}
+            numColumns={2}
+            extraData={query}
+            showsVerticalScrollIndicator={false}
+          />
+        </View>
       </SafeAreaView>
     </View>
   );
@@ -123,7 +132,6 @@ console.log(ratio);
 const styles = StyleSheet.create({
   containerOfAllProducts: {
     alignItems: 'center',
-    paddingBottom: 100,
   },
   container: {
     flex: 1,
@@ -132,13 +140,13 @@ const styles = StyleSheet.create({
     // backgroundColor: colors.white,
     height: 90,
   },
-  searchWrapper : {
+  searchWrapper: {
     top: 20,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
   },
-  searchBarWrapper : {
+  searchBarWrapper: {
     justifyContent: 'center',
     alignItems: 'center',
     flexDirection: 'row',
@@ -152,17 +160,17 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
     elevation: 5,
-    height: 46,
+    height: 50,
     width: 280,
   },
   searchPlaceHolderText: {
     // backgroundColor: colors.red,
     color: colors.black,
-    width: 220, 
+    width: 220,
     // height: 19,  
-    fontFamily: "Montserrat-Regular", 
-    fontWeight: "500", 
-    fontSize: 14, 
+    fontFamily: "Montserrat-Regular",
+    fontWeight: "500",
+    fontSize: 14,
   },
   searchSection: {
     // backgroundColor: colors.red,
@@ -171,7 +179,7 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     alignItems: 'flex-start'
   },
-  iconWrapper : {
+  iconWrapper: {
     backgroundColor: colors.white,
     resizeMode: 'contain',
     borderRadius: 11,
@@ -188,20 +196,19 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 5,
   },
-  searchTitles : {
+  searchTitles: {
     "fontFamily": "Montserrat-Regular",
     "fontWeight": "600",
     "fontSize": 24,
     margin: 5,
   },
-  searchCategoryWrapper : {
+  searchCategoryWrapper: {
     width: 113.07,
     height: 37,
     backgroundColor: colors.white,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
-    marginLeft: 10,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -210,7 +217,8 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.30,
     shadowRadius: 4.65,
     elevation: 5,
-    marginTop: 10
+    marginTop: 10,
+    marginRight: 10
   },
   searchCategoryText: {
     "fontFamily": "Montserrat-Regular",
@@ -218,22 +226,22 @@ const styles = StyleSheet.create({
     "fontSize": 13,
     margin: 5,
   },
-  searchListingWrapper : {
+  searchListingWrapper: {
     "width": 161,
     "height": 234,
     backgroundColor: colors.white,
-    borderRadius: 31,
+    borderRadius: 20,
     margin: 10,
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'space-around'
   },
-  searchListingImage : {
+  searchListingImage: {
     resizeMode: 'contain',
     width: 134,
     height: 99
   },
-  searchListingPrice : {
+  searchListingPrice: {
     "fontFamily": "Montserrat-Bold",
     "fontWeight": "600",
     "fontSize": 24
@@ -243,7 +251,7 @@ const styles = StyleSheet.create({
     "fontWeight": "600",
     "fontSize": 14
   },
-  columnWrapper : {
+  columnWrapper: {
     margin: 10
   }
 

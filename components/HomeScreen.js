@@ -16,11 +16,7 @@ import productsData from '../assets/data/productsData';
 export default Home = ({ navigation }) => {
     const renderCategoryItem = ({ item }) => {
         return (
-            <TouchableOpacity onPress={() =>
-                navigation.navigate('Details', {
-                    item: item,
-                })
-            }>
+            <TouchableOpacity>
                 <View style={[styles.categoriesItemWrapper, {
                     marginLeft: item.id == '1' ? 25 : 0
                 }]}>
