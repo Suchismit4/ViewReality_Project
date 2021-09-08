@@ -17,59 +17,64 @@ import {
 } from 'react-native';
 import categoriesData from '../assets/data/categoriesData';
 import colors from '../assets/theme/colors';
-import searchCategoriesData from '../assets/data/searchCategoriesData';
+// import searchCategoriesData from '../assets/data/searchCategoriesData';
 import productsData from '../assets/data/productsData';
 import { NavigationContainer } from '@react-navigation/native';
 import { tSTypeQuery } from '@babel/types';
 
 let searchText = ""
-let state = { refresh: new Map() }
-
-const renderSearchCategory = ({ item }) => {
-  return (
-    <TouchableOpacity >
-      <View style={[styles.searchCategoryWrapper, {
-        marginLeft: item.id == '1' ? 19 : 0
-      }]}>
-        <Text style={styles.searchCategoryText}>{item.title}</Text>
-      </View>
-    </TouchableOpacity>
-  );
-}
-
-const refreshListing = () => {
-  state.refresh = new Map()
-}
-
-const renderProductListings = ({ item }) => {
-  if (searchText != "" && !item.fullProductName.toLowerCase().includes(searchText.toLowerCase())) return
-  return (
-    <TouchableOpacity>
-      <View style={[styles.searchListingWrapper, {
-        marginBottom: item.id === '7' ? 100 : 0
-      }]}>
-        <View>
-          <Image style={styles.searchListingImage} source={item.image}></Image>
-        </View>
-        <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: "space-around", width: "80%" }}>
-          <Text style={styles.searchListingPrice}>${item.price}</Text>
-          <Text style={styles.searchListingName} >{item.name}</Text>
-        </View>
-      </View>
-    </TouchableOpacity>
-  );
-}
-
 
 export default Home = ({ navigation }) => {
 
-  const [query, setQuery] = useState();
+  const [query,setQuery] = useState();
+  const [category = "All Items", setCategory] = useState();
+  const [selectedCategory = "1", setSelectedCategory] = useState()
   const updateSearch = (text) => {
     //search logic here
     searchText = text
-    refreshListing()
     // console.log(searchText)
   }
+
+  const renderSearchCategory = ({ item }) => {
+    return (
+      <TouchableOpacity onPress = {() => {
+        setCategory(item.text)
+        setSelectedCategory(item.id)
+      }}>
+        <View style={[
+          { marginLeft: item.id == '1' ? 14 : 0},
+          item.id == selectedCategory ? styles.selectedSearchCategoryWrapper : styles.searchCategoryWrapper
+        ]}>
+          <Text style={styles.searchCategoryText}>{item.text}</Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+  
+  const renderProductListings = ({item}) => {
+    if(category != "All Items" && item.searchCat.toLowerCase() != category.toLowerCase()) return
+    if(searchText!="" && !item.fullProductName.toLowerCase().includes(searchText.toLowerCase())) return
+    return(
+      <TouchableOpacity onPress={() => {
+        navigation.navigate('Details', {
+            item: item,
+        })
+      }}>
+        <View style={[styles.searchListingWrapper, {
+          marginBottom: item.id === '7' ? 100 : 0
+        }]}>
+          <View>
+            <Image style={styles.searchListingImage} source={item.largeImage}></Image>
+          </View>
+          <View style={{ flexDirection: 'column', alignItems: 'flex-start', justifyContent: "space-around", width: "80%" }}>
+            <Text style={styles.searchListingPrice}>₹{item.price}</Text>
+            <Text style={styles.searchListingName} >{item.name}</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <View style={styles.container}>
       <SafeAreaView>
@@ -105,11 +110,12 @@ export default Home = ({ navigation }) => {
         </View>
         <View style={{ height: 50, justifyContent: 'center', alignItems: 'center', marginBottom: 10, }}>
           <FlatList
-            data={searchCategoriesData}
+            data={categoriesData}
             renderItem={renderSearchCategory}
             keyExtractor={item => item.id}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
+            extraData = {selectedCategory}
           />
         </View>
         <View style={[{ height: Dimensions.get('window').height - 90, flexDirection: 'column' }, styles.containerOfAllProducts]}>
@@ -161,12 +167,12 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 5,
     height: 50,
-    width: 280,
+    width: 260,
   },
   searchPlaceHolderText: {
     // backgroundColor: colors.red,
     color: colors.black,
-    width: 220,
+    width: 210,
     // height: 19,  
     fontFamily: "Montserrat-Regular",
     fontWeight: "500",
@@ -206,6 +212,24 @@ const styles = StyleSheet.create({
     width: 113.07,
     height: 37,
     backgroundColor: colors.white,
+    borderRadius: 25,
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.30,
+    shadowRadius: 4.65,
+    elevation: 5,
+    marginTop: 10,
+    marginRight: 10
+  },
+  selectedSearchCategoryWrapper: {
+    width: 113.07,
+    height: 37,
+    backgroundColor: colors.magenta,
     borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',

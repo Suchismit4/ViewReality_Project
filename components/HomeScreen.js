@@ -271,7 +271,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     categoriesItemWrapper: {
-        width: 97,
+        width: 110,
         height: 28,
         marginTop: 18,
         backgroundColor: colors.white,
@@ -293,6 +293,9 @@ const styles = StyleSheet.create({
         marginTop: 6
     },
     categoriesItemImage: {
+        resizeMode: 'contain',
+        width: 15,
+        height: 15,
         marginRight: 4
     },
     categoriesItemText: {

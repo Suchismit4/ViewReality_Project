@@ -9,6 +9,7 @@ const productData = [
         dX: 245,
         dY: 180.15,
         cat: "trending",
+        searchCat: "footwear",
         price: "4,020"
     },
     {
@@ -20,6 +21,7 @@ const productData = [
         description: "er dictum, metus ex dapibus dui, ut rutrum mi ex sit amet lorem. Integer vel ex quis lectus ultricies viverra. Phasellus nec diam at nisi porttitor aliquet. Cras nec congue urna. Etiam imperdiet sodales tellus in mollis. Phasellus mattis purus leo, in facilisis justo bibendum ac. Etiam scelerisque",
         dX: 245,
         dY: 180.15,
+        searchCat: "footwear",
         cat: "trending",
         price: "6,032"
     },
@@ -32,6 +34,7 @@ const productData = [
         description: "In hac habitasse platea dictumst. Duis nec faucibus ex, nec varius velit. Proin sagittis ut orci at finibus. Interdum et malesuada fames ac ante ipsum primis in faucibus.",
         dX: 245,
         dY: 180.15,
+        searchCat: "footwear",
         cat: "trending",
         price: "3,928"
     },
@@ -44,6 +47,7 @@ const productData = [
         description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tristique, odio vitae tempus pulvinar, magna est pretium tortor, a feugiat justo mi ut urna. Donec quis iaculis erat. ",
         dX: 245,
         dY: 180.15,
+        searchCat: "footwear",
         cat: "trending",
         price: "5,120"
     },
@@ -57,6 +61,7 @@ const productData = [
         largeImage: require('../images/large_SC.png'),
         description: "Nunc sit amet augue volutpat, imperdiet eros vehicula, condimentum purus. Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
         dX: 210,
+        searchCat: "accessories",
         dY: 210,
     },
     {
@@ -70,6 +75,8 @@ const productData = [
         description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
         dX: 241.48,
         dY: 180.15,
+        searchCat: "electronics",
+
 
     },
     {
@@ -83,6 +90,7 @@ const productData = [
         description: "Suspendisse pretium libero eu lorem varius condimentum. Suspendisse urna lectus, maximus in ultricies id, pulvinar sit amet nisl.",
         dX: 190,
         dY: 190,
+        searchCat: "electronics",
 
     },
 ];
